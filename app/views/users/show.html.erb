@@ -37,6 +37,8 @@
                 <th></th>
                 <th>Title</th>
                 <th>Opinion</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +55,24 @@
                   <% end %>
                 </td>
                 <td><%=book.body %></td>
+                <td>
+                  <% if book.favorited_by?(current_user) %>
+                  <p>
+                    <%= link_to book_favorites_path(book),method: :delete do %>
+                      <i class="fa-solid fa-heart"></i><%= book.favorites.count %>
+                    <% end %>
+                  </p>
+                  <% else %>
+                  <p>
+                    <nobr>
+                    <%= link_to book_favorites_path(book), method: :post do %>
+                      <i class="fa-regular fa-heart"></i><%= book.favorites.count %>
+                    <% end %>
+                    </nobr>
+                  </p>
+                  <% end %>
+                </td>
+                <td><nobr>コメント数：<%= book.book_comments.count %></nobr></td>
               </tr>
               <% end %>
             </tbody>
